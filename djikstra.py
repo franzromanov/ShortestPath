@@ -96,11 +96,5 @@ column=0
 
 
 
-
-
-
-
-
-
 move(_map)
 
