@@ -1,5 +1,5 @@
 import numpy as np
-import math as m
+import math
 
 def starting(_map):
 	row=0
@@ -15,7 +15,10 @@ def starting(_map):
 		row=row+1
 	return start
 
+
+
 def find_pos(_map):
+	_map=_map
 	pos=[]
 	bag=[]
 	row=0
@@ -25,31 +28,52 @@ def find_pos(_map):
 			bag=[row,column]
 			pos.append(bag)
 			column=column+1
+			
+
 		row=row+1
 		column=0
+	
+	for item in list(pos):
+		if type(_map[item[0]][item[1]])==str:
+			#print(_map[item[0]][item[1]])
+			pos.remove(item)
+
 	return pos
 
-def move(_map,start):
+def move(_map):
 	_map1=_map
-	pos=find_pos(_map1)
-	visited=[]
-	unvisited=[]
-	current_pos=start
-	foodpos=[]
-	branch=[]
-	bag=[]
-	endp=[]
-	length=0
-	column=0
-	row=0
-	rows=len(_map)
-	cols=len(_map[0])
-	food=0
+	unvisited_p=find_pos(_map)
+	#print(unvisited_p)
+	current_p=starting(_map)
+	#print(current_p)
+	dist_fix=0
+	dist_comp=0
+	temp_dest=[]
 
-	visited.append(current_pos)
+	#initiateRandom_pos
+	for pos in unvisited_p:
+		if pos!=current_p:
+			dist_fix=np.subtract(pos,current_p)
+			dist_fix=math.sqrt(((dist_fix[0])**2)+((dist_fix[1])**2))
+			break
 
+	for pos in unvisited_p:
 
+		if pos!=current_p:
+			dist_comp=np.subtract(pos,current_p)
+			dist_comp=math.sqrt((dist_comp[0]**2)+(dist_comp[1]**2))
 
+			if dist_comp<dist_fix:
+				temp_dest=[]
+				temp_dest.append(pos)i
+				p_comp=pos
+			elif dist_comp==dist_fix:
+				temp_dest.append(pos)
+		else:
+			continue
+	
+	print(temp_dest)
+	
 
 _map=[
 ['A','A','A','A','A','A','A','A','A','A','A','A','A','A'],
@@ -70,22 +94,13 @@ _map=[
 row=0
 column=0
 
-for area in _map:
-	for point in area:
-		if _map[row][column]==8:
-			_map[row][column]="A"
-		column=column+1
-	column=0
-	row=row+1
 
-for area in _map:
-	print(area)
 
-start=starting(_map)
-move(_map,start)
-"""
 
-rows=len(_map)
-cols=len(_map[0])
 
-print(rows,cols)
+
+
+
+
+move(_map)
+
